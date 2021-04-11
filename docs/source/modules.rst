@@ -7,6 +7,8 @@ src
    barriers
    cat
    config
+   dog
    gameplay
    level
    main
+   moving_object
