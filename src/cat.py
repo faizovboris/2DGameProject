@@ -15,7 +15,7 @@ class Cat(moving_object.BaseMovingObject):
     :param images_holder: dictionary with loaded sprite images
     """
 
-    def __init__(self, images_holder) -> None:
+    def __init__(self, images_holder: typing.Dict[str, pg.Surface]) -> None:
         """Create cat object and initialize state variables."""
         super().__init__()
         self.sprite = images_holder['cat']

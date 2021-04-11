@@ -56,3 +56,5 @@ class Gameplay:
             self.old_time = new_time
             pg.display.update()
             self.clock.tick(self.fps)
+            if self.cur_level.finished:
+                self.finished = True

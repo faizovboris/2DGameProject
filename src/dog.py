@@ -13,16 +13,28 @@ class Dog(moving_object.BaseMovingObject):
     Class for dog enemy.
 
     :param images_holder: dictionary with loaded sprite images
+    :param x_position: x-position of a dog
+    :param y_position: y-position of a dog
+    :param min_left_position: minimum left barrirer for left position of a dog
+    :param max_right_position: maximum right for left position of a dog
+    :param start_direction: start direction of moving dog
+    :param speed: speed of a dog
     """
 
-    def __init__(self, images_holder, x, y, min_left_position, max_right_position, start_direction, speed) -> None:
+    def __init__(self, images_holder: typing.Dict[str, pg.Surface],
+                       x_position: int,
+                       y_position: int,
+                       min_left_position: int,
+                       max_right_position: int,
+                       start_direction: int,
+                       speed: int) -> None:
         """Create dog enemy and initialize state variables."""
         super().__init__()
         self.sprite = images_holder['dog']
         self.image = pg.transform.scale(self.sprite, (40, 40))
         self.rect = self.image.get_rect()
-        self.x_position = x
-        self.y_position = y
+        self.x_position = x_position
+        self.y_position = y_position
         self.min_left_position = min_left_position
         self.max_right_position = max_right_position
         self.start_direction = start_direction
@@ -56,14 +68,17 @@ class Dog(moving_object.BaseMovingObject):
 
     def update_position(self,
                         all_barriers_group: pg.sprite.Group,
-                        diff_time: float) -> typing.List[pg.sprite.Sprite]:
+                        diff_time: float,
+                        cat_rect: pg.Rect) -> typing.List[pg.sprite.Sprite]:
         """
         Update dog position depending on objects around him,
         and by passed time after last call.
 
         :param all_barriers_group: Objects around dog
         :param diff_time: Amount of time passed after last call
+        :param cat_rect: Rectangle of a cat for checking if it killed dog
         """
+        before_top = self.rect.top
         collides = []
         self.x_position += self.x_speed * diff_time
         self.y_position += self.y_speed * diff_time
@@ -75,4 +90,8 @@ class Dog(moving_object.BaseMovingObject):
         self.rect.y = int(self.y_position)
         collides.append(self.manage_y_collisions(all_barriers_group))
         self.detect_falling(all_barriers_group)
+        
+        for collide in collides:
+            if collide is not None and collide.rect == cat_rect and cat_rect.bottom <= before_top + 2:
+                self.is_killed = True
         return collides

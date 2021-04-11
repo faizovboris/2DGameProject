@@ -23,6 +23,7 @@ class BaseMovingObject(pg.sprite.Sprite):
         self.x_speed = 0
         self.y_speed = 0
         self.x_acceleration = 0
+        self.is_killed = False
 
     def update_speed(self) -> None:
         """Update speed of an object"""

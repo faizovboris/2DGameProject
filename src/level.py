@@ -23,6 +23,7 @@ class Level(BasicLevel):
 
     def __init__(self) -> None:
         """Create this level object."""
+        self.finished = False
         super().__init__()
 
     def start_level(self, images_holder: typing.Dict[str, pg.Surface], screen: pg.Surface) -> None:
@@ -115,6 +116,8 @@ class Level(BasicLevel):
         self.update_dogs(diff_time)
         self.update_view()
         self.draw_scene()
+        if self.cat.is_killed:
+            self.finished = True
     
     def update_dogs(self, diff_time) -> None:
         """
@@ -122,12 +125,18 @@ class Level(BasicLevel):
 
         :param diff_time: Amount of time passed after last call
         """
-        for dog in self.dogs:
+        for i, dog in enumerate(self.dogs):
             dog.kill()
             dog.update_speed(diff_time)
-            dog.update_position(self.all_elements_group, diff_time)
-            self.dogs_group.add(dog)
-            self.all_elements_group.add(dog)
+            dog_collides = dog.update_position(self.all_elements_group, diff_time, self.cat.rect)
+            for collide in dog_collides:
+                if collide == self.cat and not dog.is_killed:
+                    self.cat.is_killed = True
+            if dog.is_killed:
+                del self.dogs[i]
+            else:
+                self.dogs_group.add(dog)
+                self.all_elements_group.add(dog)
 
     def update_view(self) -> None:
         """Update view position after next time tick."""
