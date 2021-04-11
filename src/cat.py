@@ -168,10 +168,14 @@ class Cat(pg.sprite.Sprite):
         :param all_barriers_group: Barriers around cat
         """
         collider = pg.sprite.spritecollideany(self, all_barriers_group)
-        if collider and collider.rect.bottom > self.rect.bottom:
-            self.rect.bottom = collider.rect.top
+        if collider:
+            if collider.rect.bottom > self.rect.bottom:
+                self.rect.bottom = collider.rect.top
+                self.state = 'walk'
+            else:
+                self.rect.top = collider.rect.bottom
+                self.state = 'fall'
             self.y_speed = 0
-            self.state = 'walk'
         else:
             collider = None
         return collider

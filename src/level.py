@@ -67,6 +67,9 @@ class Level(BasicLevel):
             (200, config.GROUND_Y_POSITION - config.BRICK_SIZE),
             (240, config.GROUND_Y_POSITION - config.BRICK_SIZE),
             (240, config.GROUND_Y_POSITION - 2 * config.BRICK_SIZE),
+            (600, config.GROUND_Y_POSITION - 4 * config.BRICK_SIZE),
+            (640, config.GROUND_Y_POSITION - 4 * config.BRICK_SIZE),
+            (680, config.GROUND_Y_POSITION - 4 * config.BRICK_SIZE),
         ]
         barrier_brick_image = self.images_holder['brick']
         barrier_brick_image = pg.transform.scale(barrier_brick_image, (config.BRICK_SIZE, config.BRICK_SIZE))
