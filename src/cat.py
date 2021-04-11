@@ -4,10 +4,11 @@ Module, containing implementaion player cat.
 import typing
 
 import pygame as pg
+import moving_object
 import config
 
 
-class Cat(pg.sprite.Sprite):
+class Cat(moving_object.BaseMovingObject):
     """
     Class for cat player object.
 
@@ -16,16 +17,10 @@ class Cat(pg.sprite.Sprite):
 
     def __init__(self, images_holder) -> None:
         """Create cat object and initialize state variables."""
-        pg.sprite.Sprite.__init__(self)
+        super().__init__()
         self.sprite = images_holder['cat']
         self.image = pg.transform.scale(self.sprite, (40, 40))
         self.rect = self.image.get_rect()
-        self.state = 'walk'
-        self.x_position = 0
-        self.y_position = 0
-        self.x_speed = 0
-        self.y_speed = 0
-        self.x_acceleration = 0
 
     def update_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
@@ -145,49 +140,3 @@ class Cat(pg.sprite.Sprite):
         self.detect_falling(all_barriers_group)
         self.rect.x = max(self.rect.x, min_x_pos)
         return collides
-
-    def manage_x_collisions(self, all_barriers_group: pg.sprite.Group) -> pg.sprite.Sprite:
-        """
-        Manage and resolve horisontal cat collisions with environment.
-
-        :param all_barriers_group: Barriers around cat
-        """
-        collider = pg.sprite.spritecollideany(self, all_barriers_group)
-        if collider:
-            if self.rect.x < collider.rect.x:
-                self.rect.right = collider.rect.left
-            else:
-                self.rect.left = collider.rect.right
-            self.x_speed = 0
-        return collider
-
-    def manage_y_collisions(self, all_barriers_group: pg.sprite.Group) -> pg.sprite.Sprite:
-        """
-        Manage and resolve vertical cat collisions with environment.
-
-        :param all_barriers_group: Barriers around cat
-        """
-        collider = pg.sprite.spritecollideany(self, all_barriers_group)
-        if collider:
-            if collider.rect.bottom > self.rect.bottom:
-                self.rect.bottom = collider.rect.top
-                self.state = 'walk'
-            else:
-                self.rect.top = collider.rect.bottom
-                self.state = 'fall'
-            self.y_speed = 0
-        else:
-            collider = None
-        return collider
-
-    def detect_falling(self, all_barriers_group: pg.sprite.Group) -> None:
-        """
-        Check if cat started falling.
-
-        :param all_barriers_group: Barriers around cat
-        """
-        self.rect.y += 1
-        collider = pg.sprite.spritecollideany(self, all_barriers_group)
-        if collider is None and self.state != 'jump':
-            self.state = 'fall'
-        self.rect.y -= 1

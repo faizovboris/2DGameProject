@@ -5,8 +5,9 @@ import typing
 import pygame as pg
 
 import config
-import cat
 import barriers
+import cat
+import dog
 
 
 class BasicLevel:
@@ -36,8 +37,12 @@ class Level(BasicLevel):
         self.init_background()
         self.init_ground()
         self.init_barriers()
+        self.init_dogs()
         self.init_cat()
         self.static_barriers_group = pg.sprite.Group(self.ground_group, self.barrier_group)
+        self.all_elements_group = pg.sprite.Group(self.static_barriers_group,
+                                                  self.cat_group,
+                                                  self.dogs_group)
 
     def init_background(self) -> None:
         """Initialize background objects of this level."""
@@ -79,6 +84,17 @@ class Level(BasicLevel):
             barrier_colliders.append(new_brick)
             self.background.blit(new_brick.image, (position[0], position[1]))
         self.barrier_group = pg.sprite.Group(* barrier_colliders)
+    
+    def init_dogs(self) -> None:
+        """Initialize dogs for this level."""
+        DOGS_POSITIONS_INFO = [
+            (640, config.GROUND_Y_POSITION - 5 * config.BRICK_SIZE, 300, 800, 1, 50),  # x, y, min_x, max_x, start_direction, speed
+        ]
+        self.dogs = []
+        for position in DOGS_POSITIONS_INFO:
+            new_dog = dog.Dog(self.images_holder, position[0], position[1], position[2], position[3], position[4], position[5])
+            self.dogs.append(new_dog)
+        self.dogs_group = pg.sprite.Group(* self.dogs)
 
     def init_cat(self) -> None:
         """Initialize cat for this level."""
@@ -96,8 +112,22 @@ class Level(BasicLevel):
         """
         self.cat.update_speed(keys, diff_time)
         self.cat.update_position(self.static_barriers_group, self.view.x + 5, diff_time)
+        self.update_dogs(diff_time)
         self.update_view()
         self.draw_scene()
+    
+    def update_dogs(self, diff_time) -> None:
+        """
+        Update dogs after next time tick.
+
+        :param diff_time: Amount of time passed after last call
+        """
+        for dog in self.dogs:
+            dog.kill()
+            dog.update_speed(diff_time)
+            dog.update_position(self.all_elements_group, diff_time)
+            self.dogs_group.add(dog)
+            self.all_elements_group.add(dog)
 
     def update_view(self) -> None:
         """Update view position after next time tick."""
@@ -110,4 +140,5 @@ class Level(BasicLevel):
         """Draw updated scene."""
         self.level.blit(self.background, self.view, self.view)
         self.cat_group.draw(self.level)
+        self.dogs_group.draw(self.level)
         self.screen.blit(self.level, (0, 0), self.view)
