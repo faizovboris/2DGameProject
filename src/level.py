@@ -138,8 +138,12 @@ class Level(BasicLevel):
             dog_instance.update_speed(diff_time)
             dog_collides = dog_instance.update_position(self.all_elements_group, diff_time, self.cat.rect)
             for collide in dog_collides:
-                if collide == self.cat and not dog_instance.is_killed and not dog_instance.state == 'dying':
-                    self.cat.is_killed = True
+                if collide == self.cat:
+                    if dog_instance.is_killed or dog_instance.state == 'dying':
+                        self.cat.y_speed += config.CAT_ENEMY_KILLING_JUMP_SPEED
+                        self.cat.state = 'jump'
+                    else:
+                        self.cat.is_killed = True
             if dog_instance.is_killed:
                 del self.dogs[i]
             else:
