@@ -18,9 +18,8 @@ class Cat(moving_object.BaseMovingObject):
     def __init__(self, images_holder: typing.Dict[str, pg.Surface]) -> None:
         """Create cat object and initialize state variables."""
         super().__init__()
-        self.sprite = images_holder['cat']
-        self.image = pg.transform.scale(self.sprite, (40, 40))
-        self.rect = self.image.get_rect()
+        self.sprites = moving_object.generate_rotated_images(images_holder['cat'], (config.BRICK_SIZE, config.BRICK_SIZE))
+        self.update_sprite_view()
 
     def update_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
@@ -130,13 +129,17 @@ class Cat(moving_object.BaseMovingObject):
         :param min_x_pos: Minimum possible horisontal position due to environment and view rectangle
         :param diff_time: Amount of time passed after last call
         """
+        self.update_sprite_view()
         collides = []
         self.x_position += self.x_speed * diff_time
         self.y_position += self.y_speed * diff_time
+        if self.x_position < min_x_pos:
+            self.x_position = min_x_pos
+            self.x_speed = max(0, self.x_speed)
+            self.x_acceleration = max(0, self.x_acceleration)
         self.rect.x = int(self.x_position)
         collides.append(self.manage_x_collisions(all_barriers_group))
         self.rect.y = int(self.y_position)
         collides.append(self.manage_y_collisions(all_barriers_group))
         self.detect_falling(all_barriers_group)
-        self.rect.x = max(self.rect.x, min_x_pos)
         return collides

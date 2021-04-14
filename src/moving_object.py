@@ -80,3 +80,26 @@ class BaseMovingObject(pg.sprite.Sprite):
         if collider is None and self.state != 'jump':
             self.state = 'fall'
         self.rect.y -= 1
+
+    def update_sprite_view(self) -> None:
+        """Update sprite depending on move direction."""
+        if self.x_speed >= -5:
+            self.image = self.sprites['right_direction']
+        else:
+            self.image = self.sprites['left_direction']
+        bottom, left = self.rect.bottom, self.rect.x
+        self.rect = self.image.get_rect()
+        self.rect.bottom, self.rect.x = bottom, left
+
+
+def generate_rotated_images(image, size):
+    """
+    Generate images rotated for different moving directions.
+
+    :param size: Desired sprite size
+    """
+    image = pg.transform.scale(image, size)
+    return {
+        'right_direction': image,
+        'left_direction': pg.transform.flip(image, True, False)
+    }

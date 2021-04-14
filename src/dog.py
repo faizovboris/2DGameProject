@@ -30,8 +30,9 @@ class Dog(moving_object.BaseMovingObject):
                        speed: int) -> None:
         """Create dog enemy and initialize state variables."""
         super().__init__()
+        self.sprites = moving_object.generate_rotated_images(images_holder['dog'], (config.BRICK_SIZE, config.BRICK_SIZE))
         self.sprite = images_holder['dog']
-        self.image = pg.transform.scale(self.sprite, (40, 40))
+        self.image = pg.transform.scale(self.sprite, (config.BRICK_SIZE, config.BRICK_SIZE))
         self.rect = self.image.get_rect()
         self.x_position = x_position
         self.y_position = y_position
@@ -78,6 +79,7 @@ class Dog(moving_object.BaseMovingObject):
         :param diff_time: Amount of time passed after last call
         :param cat_rect: Rectangle of a cat for checking if it killed dog
         """
+        self.update_sprite_view()
         before_top = self.rect.top
         collides = []
         self.x_position += self.x_speed * diff_time
