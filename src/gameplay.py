@@ -23,6 +23,7 @@ class Gameplay:
         self.old_time = pg.time.get_ticks()
         self.fps = 60
         self.finished = False
+        self.quit_pressed = False
         self.keys_pressed = pg.key.get_pressed()
 
     @staticmethod
@@ -46,8 +47,9 @@ class Gameplay:
         self.cur_level.start_level(self.images_holder, self.screen)
         while not self.finished:
             for event in pg.event.get():
-                if event.type == pg.QUIT:
+                if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                     self.finished = True
+                    self.quit_pressed = True
                 self.keys_pressed = pg.key.get_pressed()
             new_time = pg.time.get_ticks()
             self.cur_level.update(self.keys_pressed, (new_time - self.old_time) / 1000.0)
