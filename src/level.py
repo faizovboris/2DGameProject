@@ -1,4 +1,6 @@
 """Module, containing implementaion of game levels."""
+import os
+import csv
 import typing
 import pygame as pg
 
@@ -17,12 +19,16 @@ class BasicLevel:
 
 
 class Level(BasicLevel):
-    """Class with gameplay of simple level."""
+    """Class with gameplay of simple level.
 
-    def __init__(self) -> None:
+    :param directory: Directory with info about objects in level
+    """
+
+    def __init__(self, directory: str) -> None:
         """Create this level object."""
         self.finished = False
         super().__init__()
+        self.level_info = parse_level_info(directory)
 
     def start_level(self, images_holder: typing.Dict[str, pg.Surface], screen: pg.Surface) -> None:
         """
@@ -54,45 +60,48 @@ class Level(BasicLevel):
 
     def init_ground(self) -> None:
         """Initialize ground for this level."""
-        GROUND_POSITIONS_INFO = [
-            (0, config.GROUND_Y_POSITION, 1001),  # x, y, width
-            (1060, config.GROUND_Y_POSITION, 1001),  # x, y, width
-        ]
+        ground_positions_info = self.level_info['ground']
         ground_segments = []
-        for position in GROUND_POSITIONS_INFO:
-            new_ground_segment = barriers.Ground(self.images_holder, position[0], position[1], position[2])
+        for cur_position_info in ground_positions_info:
+            x_position = int(cur_position_info['x'])
+            y_position = config.GROUND_Y_POSITION - int(cur_position_info['y'])
+            width = int(cur_position_info['width'])
+            new_ground_segment = barriers.Ground(self.images_holder,
+                                                 x_position=x_position,
+                                                 y_position=y_position,
+                                                 width=width)
             ground_segments.append(new_ground_segment)
-            self.background.blit(new_ground_segment.image, (position[0], position[1]))
+            self.background.blit(new_ground_segment.image, (x_position, y_position))
         self.ground_group = pg.sprite.Group(* ground_segments)
 
     def init_barriers(self) -> None:
         """Initialize ground barriers for this level."""
-        BARRIER_POSITIONS_INFO = [
-            (200, config.GROUND_Y_POSITION - config.BRICK_SIZE),
-            (240, config.GROUND_Y_POSITION - config.BRICK_SIZE),
-            (240, config.GROUND_Y_POSITION - 2 * config.BRICK_SIZE),
-            (600, config.GROUND_Y_POSITION - 4 * config.BRICK_SIZE),
-            (640, config.GROUND_Y_POSITION - 4 * config.BRICK_SIZE),
-            (680, config.GROUND_Y_POSITION - 4 * config.BRICK_SIZE),
-        ]
-        barrier_brick_image = self.images_holder['brick']
-        barrier_brick_image = pg.transform.scale(barrier_brick_image, (config.BRICK_SIZE, config.BRICK_SIZE))
+        barrier_positions_info = self.level_info['barriers']
         barrier_colliders = []
-        for position in BARRIER_POSITIONS_INFO:
-            new_brick = barriers.BrickBarrier(position[0], position[1], barrier_brick_image)
+        for cur_position_info in barrier_positions_info:
+            x_position = int(cur_position_info['x'])
+            y_position = config.GROUND_Y_POSITION - int(cur_position_info['y'])
+            barrier_brick_image = self.images_holder[cur_position_info['sprite']]
+            barrier_brick_image = pg.transform.scale(barrier_brick_image, (config.BRICK_SIZE, config.BRICK_SIZE))
+            new_brick = barriers.BrickBarrier(x_position=x_position,
+                                              y_position=y_position,
+                                              image=barrier_brick_image)
             barrier_colliders.append(new_brick)
-            self.background.blit(new_brick.image, (position[0], position[1]))
+            self.background.blit(new_brick.image, (x_position, y_position))
         self.barrier_group = pg.sprite.Group(* barrier_colliders)
 
     def init_dogs(self) -> None:
         """Initialize dogs for this level."""
-        # x, y, min_x, max_x, start_direction, speed
-        DOGS_POSITIONS_INFO = [
-            (640, config.GROUND_Y_POSITION - 5 * config.BRICK_SIZE, 300, 800, 1, 50),
-        ]
+        dogs_positions_info = self.level_info['dogs']
         self.dogs = []
-        for position in DOGS_POSITIONS_INFO:
-            new_dog = dog.Dog(self.images_holder, * position)
+        for cur_position_info in dogs_positions_info:
+            new_dog = dog.Dog(self.images_holder,
+                              x_position=int(cur_position_info['x']),
+                              y_position=config.GROUND_Y_POSITION - int(cur_position_info['y']),
+                              min_left_position=int(cur_position_info['min_x']),
+                              max_right_position=int(cur_position_info['max_x']),
+                              start_direction=int(cur_position_info['start_direction']),
+                              speed=int(cur_position_info['speed']))
             self.dogs.append(new_dog)
         self.dogs_group = pg.sprite.Group(* self.dogs)
 
@@ -150,3 +159,18 @@ class Level(BasicLevel):
         self.cat_group.draw(self.level)
         self.dogs_group.draw(self.level)
         self.screen.blit(self.level, (0, 0), self.view)
+
+
+def parse_level_info(directory: str) -> typing.Dict[str, typing.Dict[str, str]]:
+    """
+    Parse info about object placement in level from files in directory.
+
+    :param directory: Directory with info
+    """
+    level_info = {}
+    for filename in os.listdir(directory):
+        name, ext = os.path.splitext(filename)
+        if ext.lower() == '.csv':
+            with open(os.path.join(directory, filename), "r") as fr:
+                level_info[name] = list(csv.DictReader(fr))
+    return level_info

@@ -14,7 +14,7 @@ def main():
     pg.display.set_caption("Super Cat")
     screen = pg.display.set_mode(config.SCREEN_SIZE)
     while True:
-        game = gameplay.Gameplay(level.Level(), screen)
+        game = gameplay.Gameplay(level.Level("level_1"), screen)
         game.mainloop()
 
 
