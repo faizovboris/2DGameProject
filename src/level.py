@@ -121,6 +121,8 @@ class Level(BasicLevel):
         """
         self.cat.update_speed(keys, diff_time)
         self.cat.update_position(self.static_barriers_group, self.view.x + 5, diff_time)
+        if self.cat.state == 'fall' and self.cat.y_position >= config.SCREEN_HEIGHT:
+            self.cat.is_killed = True
         self.update_dogs(diff_time)
         self.update_view()
         self.draw_scene()
@@ -144,6 +146,8 @@ class Level(BasicLevel):
                         self.cat.state = 'jump'
                     else:
                         self.cat.is_killed = True
+            if dog_instance.state == 'fall' and dog_instance.y_position >= config.SCREEN_HEIGHT:
+                dog_instance.is_killed = True
             if dog_instance.is_killed:
                 del self.dogs[i]
             else:
