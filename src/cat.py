@@ -17,8 +17,9 @@ class Cat(moving_object.BaseMovingObject):
 
     def __init__(self, images_holder: typing.Dict[str, pg.Surface]) -> None:
         """Create cat object and initialize state variables."""
-        super().__init__()
-        self.sprites = moving_object.generate_rotated_images(images_holder['cat'], (config.BRICK_SIZE, config.BRICK_SIZE))
+        size = (config.BRICK_SIZE, config.BRICK_SIZE)
+        super().__init__(size)
+        self.sprites = moving_object.generate_rotated_images(images_holder['cat'], size)
         self.update_sprite_view()
 
     def update_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:

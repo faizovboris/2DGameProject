@@ -85,15 +85,16 @@ class Level(BasicLevel):
             barrier_colliders.append(new_brick)
             self.background.blit(new_brick.image, (position[0], position[1]))
         self.barrier_group = pg.sprite.Group(* barrier_colliders)
-    
+
     def init_dogs(self) -> None:
         """Initialize dogs for this level."""
+        # x, y, min_x, max_x, start_direction, speed
         DOGS_POSITIONS_INFO = [
-            (640, config.GROUND_Y_POSITION - 5 * config.BRICK_SIZE, 300, 800, 1, 50),  # x, y, min_x, max_x, start_direction, speed
+            (640, config.GROUND_Y_POSITION - 5 * config.BRICK_SIZE, 300, 800, 1, 50),
         ]
         self.dogs = []
         for position in DOGS_POSITIONS_INFO:
-            new_dog = dog.Dog(self.images_holder, position[0], position[1], position[2], position[3], position[4], position[5])
+            new_dog = dog.Dog(self.images_holder, * position)
             self.dogs.append(new_dog)
         self.dogs_group = pg.sprite.Group(* self.dogs)
 
@@ -118,25 +119,25 @@ class Level(BasicLevel):
         self.draw_scene()
         if self.cat.is_killed:
             self.finished = True
-    
+
     def update_dogs(self, diff_time) -> None:
         """
         Update dogs after next time tick.
 
         :param diff_time: Amount of time passed after last call
         """
-        for i, dog in enumerate(self.dogs):
-            dog.kill()
-            dog.update_speed(diff_time)
-            dog_collides = dog.update_position(self.all_elements_group, diff_time, self.cat.rect)
+        for i, dog_instance in enumerate(self.dogs):
+            dog_instance.kill()
+            dog_instance.update_speed(diff_time)
+            dog_collides = dog_instance.update_position(self.all_elements_group, diff_time, self.cat.rect)
             for collide in dog_collides:
-                if collide == self.cat and not dog.is_killed:
+                if collide == self.cat and not dog_instance.is_killed and not dog_instance.state == 'dying':
                     self.cat.is_killed = True
-            if dog.is_killed:
+            if dog_instance.is_killed:
                 del self.dogs[i]
             else:
-                self.dogs_group.add(dog)
-                self.all_elements_group.add(dog)
+                self.dogs_group.add(dog_instance)
+                self.all_elements_group.add(dog_instance)
 
     def update_view(self) -> None:
         """Update view position after next time tick."""

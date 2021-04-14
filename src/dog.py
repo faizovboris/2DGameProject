@@ -22,18 +22,18 @@ class Dog(moving_object.BaseMovingObject):
     """
 
     def __init__(self, images_holder: typing.Dict[str, pg.Surface],
-                       x_position: int,
-                       y_position: int,
-                       min_left_position: int,
-                       max_right_position: int,
-                       start_direction: int,
-                       speed: int) -> None:
+                 x_position: int,
+                 y_position: int,
+                 min_left_position: int,
+                 max_right_position: int,
+                 start_direction: int,
+                 speed: int) -> None:
         """Create dog enemy and initialize state variables."""
-        super().__init__()
-        self.sprites = moving_object.generate_rotated_images(images_holder['dog'], (config.BRICK_SIZE, config.BRICK_SIZE))
-        self.sprite = images_holder['dog']
-        self.image = pg.transform.scale(self.sprite, (config.BRICK_SIZE, config.BRICK_SIZE))
-        self.rect = self.image.get_rect()
+        size = (config.BRICK_SIZE, config.BRICK_SIZE)
+        super().__init__(size)
+        self.sprites = moving_object.generate_rotated_images(images_holder['dog'], size)
+        self.image = self.sprites['right_direction']
+        self.update_sprite_view()
         self.x_position = x_position
         self.y_position = y_position
         self.min_left_position = min_left_position
@@ -43,7 +43,7 @@ class Dog(moving_object.BaseMovingObject):
 
     def update_speed(self, diff_time: float) -> None:
         """
-        Update speed of a dog depending 
+        Update speed of a dog depending
         on passed time after last call.
 
         :param diff_time: Amount of time passed after last call
@@ -79,6 +79,9 @@ class Dog(moving_object.BaseMovingObject):
         :param diff_time: Amount of time passed after last call
         :param cat_rect: Rectangle of a cat for checking if it killed dog
         """
+        if self.state == 'dying':
+            self.update_dying_view(diff_time)
+            return []
         self.update_sprite_view()
         before_top = self.rect.top
         collides = []
@@ -92,8 +95,27 @@ class Dog(moving_object.BaseMovingObject):
         self.rect.y = int(self.y_position)
         collides.append(self.manage_y_collisions(all_barriers_group))
         self.detect_falling(all_barriers_group)
-        
+
         for collide in collides:
-            if collide is not None and collide.rect == cat_rect and cat_rect.bottom <= before_top + 2:
-                self.is_killed = True
+            if collide is not None and collide.rect == cat_rect and cat_rect.bottom <= before_top + 10:
+                self.start_dying()
         return collides
+
+    def start_dying(self) -> None:
+        """Start dog dying animation."""
+        self.state = 'dying'
+        self.x_speed = 0
+        self.y_speed = 0
+        self.x_acceleration = 0
+        self.dying_shrink = 0
+
+    def update_dying_view(self, diff_time: float) -> None:
+        """Update dog dying animation.
+
+        :param diff_time: Amount of time passed after last call
+        """
+        self.dying_shrink += 20.0 * diff_time
+        self.rect.y = self.y_position + self.dying_shrink
+        self.image = pg.transform.smoothscale(self.image, (self.rect.width, int(config.BRICK_SIZE - self.dying_shrink)))
+        if self.dying_shrink >= config.BRICK_SIZE:
+            self.is_killed = True

@@ -4,18 +4,19 @@ Module, containing implementaion of basic moving object.
 import typing
 
 import pygame as pg
-import config
 
 
 class BaseMovingObject(pg.sprite.Sprite):
     """
     Base class for movinf object.
+
+    : param size: size of moving object
     """
 
-    def __init__(self) -> None:
+    def __init__(self, size: typing.Tuple[int, int]) -> None:
         """Create moving object and initialize state variables."""
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.Surface((10, 10)).convert()
+        self.image = pg.Surface(size).convert()
         self.rect = self.image.get_rect()
         self.state = 'stand'
         self.x_position = 0
@@ -87,9 +88,9 @@ class BaseMovingObject(pg.sprite.Sprite):
             self.image = self.sprites['right_direction']
         else:
             self.image = self.sprites['left_direction']
-        bottom, left = self.rect.bottom, self.rect.x
-        self.rect = self.image.get_rect()
-        self.rect.bottom, self.rect.x = bottom, left
+        # bottom, left = self.rect.bottom, self.rect.x
+        # self.rect = self.image.get_rect()
+        # self.rect.bottom, self.rect.x = bottom, left
 
 
 def generate_rotated_images(image, size):
