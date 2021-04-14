@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Main module of game.
-"""
+"""Main module of game."""
 import os
 import pygame as pg
 import gameplay
@@ -10,7 +8,7 @@ import config
 
 
 def main():
-    """Main game function."""
+    """Application main function."""
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pg.init()
     pg.display.set_caption("Super Cat")

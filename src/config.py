@@ -1,6 +1,4 @@
-"""
-Module, containing game configurations
-"""
+"""Module, containing game configurations."""
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 800
 SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)

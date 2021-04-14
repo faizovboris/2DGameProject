@@ -1,6 +1,4 @@
-"""
-Module, containing implementaion of game levels.
-"""
+"""Module, containing implementaion of game levels."""
 import typing
 import pygame as pg
 

@@ -1,6 +1,4 @@
-"""
-Module, containing implementaion player cat.
-"""
+"""Module, containing implementaion player cat."""
 import typing
 
 import pygame as pg
@@ -24,8 +22,7 @@ class Cat(moving_object.BaseMovingObject):
 
     def update_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
-        Update speed of a cat depending in pressed by
-        player buttons and on passed time after last call.
+        Update speed of a cat depending in pressed by player buttons and on passed time after last call.
 
         :param keys: Contains pressed by user buttons
         :param diff_time: Amount of time passed after last call
@@ -44,8 +41,7 @@ class Cat(moving_object.BaseMovingObject):
 
     def update_standing_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
-        Update speed of a standing cat depending in pressed by
-        player buttons and on passed time after last call.
+        Update speed of a standing cat depending in pressed by player buttons and on passed time after last call.
 
         :param keys: Contains pressed by user buttons
         :param diff_time: Amount of time passed after last call
@@ -61,8 +57,7 @@ class Cat(moving_object.BaseMovingObject):
 
     def update_walking_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
-        Update speed of a walking cat depending in pressed by
-        player buttons and on passed time after last call.
+        Update speed of a walking cat depending in pressed by player buttons and on passed time after last call.
 
         :param keys: Contains pressed by user buttons
         :param diff_time: Amount of time passed after last call
@@ -73,8 +68,7 @@ class Cat(moving_object.BaseMovingObject):
 
     def update_jumping_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
-        Update speed of a jumping cat depending in pressed by
-        player buttons and on passed time after last call.
+        Update speed of a jumping cat depending in pressed by player buttons and on passed time after last call.
 
         :param keys: Contains pressed by user buttons
         :param diff_time: Amount of time passed after last call
@@ -85,8 +79,7 @@ class Cat(moving_object.BaseMovingObject):
 
     def update_falling_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
-        Update speed of a falling cat depending in pressed by
-        player buttons and on passed time after last call.
+        Update speed of a falling cat depending in pressed by player buttons and on passed time after last call.
 
         :param keys: Contains pressed by user buttons
         :param diff_time: Amount of time passed after last call
@@ -95,8 +88,7 @@ class Cat(moving_object.BaseMovingObject):
 
     def update_x_speed(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
         """
-        Update horisontal speed of a cat depending on pressed by
-        player buttons and on passed time after last call.
+        Update horisontal speed of a cat depending on pressed by player buttons and on passed time after last call.
 
         :param keys: Contains pressed by user buttons
         :param diff_time: Amount of time passed after last call
@@ -122,9 +114,7 @@ class Cat(moving_object.BaseMovingObject):
                         min_x_pos: int,
                         diff_time: float) -> typing.List[pg.sprite.Sprite]:
         """
-        Update cat position depending on barriers around him,
-        minimum possible position due to environment and by
-        passed time after last call.
+        Update cat position depending on barriers around him, environment position and time after last call.
 
         :param all_barriers_group: Barriers around cat
         :param min_x_pos: Minimum possible horisontal position due to environment and view rectangle

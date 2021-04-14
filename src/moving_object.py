@@ -1,6 +1,4 @@
-"""
-Module, containing implementaion of basic moving object.
-"""
+"""Module, containing implementaion of basic moving object."""
 import typing
 
 import pygame as pg
@@ -27,11 +25,11 @@ class BaseMovingObject(pg.sprite.Sprite):
         self.is_killed = False
 
     def update_speed(self) -> None:
-        """Update speed of an object"""
+        """Update speed of an object."""
         pass
 
     def update_position(self):
-        """Update position of an object"""
+        """Update position of an object."""
         pass
 
     def manage_x_collisions(self, all_barriers_group: pg.sprite.Group) -> pg.sprite.Sprite:

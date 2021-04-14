@@ -1,6 +1,4 @@
-"""
-Module, containing implementaion of dog enemy.
-"""
+"""Module, containing implementaion of dog enemy."""
 import typing
 
 import pygame as pg
@@ -43,8 +41,7 @@ class Dog(moving_object.BaseMovingObject):
 
     def update_speed(self, diff_time: float) -> None:
         """
-        Update speed of a dog depending
-        on passed time after last call.
+        Update speed of a dog depending on passed time after last call.
 
         :param diff_time: Amount of time passed after last call
         """
@@ -59,8 +56,7 @@ class Dog(moving_object.BaseMovingObject):
 
     def update_falling_speed(self, diff_time: float) -> None:
         """
-        Update speed of a falling dog depending
-        on passed time after last call.
+        Update speed of a falling dog depending on passed time after last call.
 
         :param diff_time: Amount of time passed after last call
         """
@@ -72,8 +68,7 @@ class Dog(moving_object.BaseMovingObject):
                         diff_time: float,
                         cat_rect: pg.Rect) -> typing.List[pg.sprite.Sprite]:
         """
-        Update dog position depending on objects around him,
-        and by passed time after last call.
+        Update dog position depending on objects around him, and by passed time after last call.
 
         :param all_barriers_group: Objects around dog
         :param diff_time: Amount of time passed after last call

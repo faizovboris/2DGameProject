@@ -1,6 +1,4 @@
-"""
-Module, containing different static barriers for a game.
-"""
+"""Module, containing different static barriers for a game."""
 import typing
 import pygame as pg
 
@@ -48,6 +46,7 @@ class BrickBarrier(pg.sprite.Sprite):
     """
 
     def __init__(self, x_position: int, y_position: int, image: pg.Surface) -> None:
+        """Create new brick barrier."""
         pg.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()

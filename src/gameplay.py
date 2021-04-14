@@ -1,6 +1,4 @@
-"""
-Module, containing gamplay controlling class
-"""
+"""Module, containing gamplay controlling class."""
 import os
 import typing
 import pygame as pg
@@ -44,7 +42,7 @@ class Gameplay:
         return images
 
     def mainloop(self) -> None:
-        """Main loop for a game."""
+        """Game main loop."""
         self.cur_level.start_level(self.images_holder, self.screen)
         while not self.finished:
             for event in pg.event.get():
