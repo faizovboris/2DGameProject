@@ -1,2 +1,2 @@
 [pydocstyle]
-match = src/*.py
+match_dir = src
