@@ -179,6 +179,6 @@ def parse_level_info(directory: str) -> typing.Dict[str, typing.Dict[str, str]]:
     for filename in os.listdir(directory):
         name, ext = os.path.splitext(filename)
         if ext.lower() == '.csv':
-            with open(os.path.join(directory, filename), "r") as fr:
+            with open(os.path.join(directory, filename), 'r') as fr:
                 level_info[name] = list(csv.DictReader(fr))
     return level_info

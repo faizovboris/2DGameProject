@@ -16,7 +16,7 @@ class Gameplay:
 
     def __init__(self, cur_level: level.BasicLevel, screen: pg.Surface) -> None:
         """Create gameplay object."""
-        self.images_holder = self.load_all_images("./images")
+        self.images_holder = self.load_all_images('./images')
         self.cur_level = cur_level
         self.screen = screen
         self.clock = pg.time.Clock()
