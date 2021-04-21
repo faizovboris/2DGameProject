@@ -28,12 +28,12 @@ class MainMenu:
         text_height = self.input_text_rendered.get_height() + self.padding * 2
         self.input_text_image = pg.Surface((text_width, text_height), pg.SRCALPHA)
 
-        text1_rendered = self.font.render("Name:", True, self.text_color, self.text_background)
+        text1_rendered = self.font.render(_("Name:"), True, self.text_color, self.text_background)
         widget_position = ((self.screen.get_width() - text_width) / 2,
                            (self.screen.get_height() - text_height) / 2 - text_height)
         self.screen.blit(text1_rendered, widget_position)
 
-        for i, text in enumerate(["^ Jump", "> Right", "< Left"]):
+        for i, text in enumerate([_("^ Jump"), _("> Right"), _("< Left")]):
             text1_rendered = self.font.render(text, True, self.text_color, self.text_background)
             widget_position = (100, self.screen.get_height() - text_height * (i + 1))
             self.screen.blit(text1_rendered, widget_position)
