@@ -28,6 +28,6 @@ def main():
 
 
 if __name__ == '__main__':
-    gettext.install('main')
+    gettext.install('main', localedir='./')
     main()
     pg.quit()
