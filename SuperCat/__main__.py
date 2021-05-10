@@ -11,6 +11,7 @@ from . import config
 
 package_directory = os.path.dirname(os.path.abspath(__file__))
 
+
 def main():
     """Application main function."""
     os.environ['SDL_VIDEO_CENTERED'] = '1'

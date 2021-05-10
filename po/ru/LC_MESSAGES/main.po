@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-10 20:14+0300\n"
+"POT-Creation-Date: 2021-05-10 22:58+0300\n"
 "PO-Revision-Date: 2021-04-21 19:14+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,23 +19,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.1\n"
 
-#: src/__main__.py:18
+#: SuperCat/__main__.py:19
 msgid "Super Cat"
 msgstr "Супер Кот"
 
-#: src/main_menu.py:31
+#: SuperCat/main_menu.py:31
 msgid "Name:"
 msgstr "Имя:"
 
-#: src/main_menu.py:36
+#: SuperCat/main_menu.py:36
 msgid "^ Jump"
 msgstr "^ Прыжок"
 
-#: src/main_menu.py:36
+#: SuperCat/main_menu.py:36
 msgid "> Right"
 msgstr "> Вправо"
 
-#: src/main_menu.py:36
+#: SuperCat/main_menu.py:36
 msgid "< Left"
 msgstr "< Влево"
 
