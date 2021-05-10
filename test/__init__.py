@@ -1,7 +1,7 @@
 import pygame as pg
 import unittest
 import os
-import src.config as config
+import SuperCat.config as config
 
 def setUpModule():
     os.environ['SDL_VIDEO_CENTERED'] = '1'

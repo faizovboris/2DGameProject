@@ -31,8 +31,8 @@ def task_test():
 def task_pot():
     """Re-create .pot ."""
     return {
-            'actions': ['pybabel extract -o main.pot src'],
-            'file_dep': glob.glob('src/*.py'),
+            'actions': ['pybabel extract -o main.pot SuperCat'],
+            'file_dep': glob.glob('SuperCat/*.py'),
             'targets': ['main.pot'],
            }
 
@@ -50,11 +50,11 @@ def task_mo():
     """Compile translations."""
     return {
             'actions': [
-                (create_folder, ['src/ru/LC_MESSAGES']),
-                'pybabel compile -D main -l ru -i po/ru/LC_MESSAGES/main.po -d src'
+                (create_folder, ['SuperCat/ru/LC_MESSAGES']),
+                'pybabel compile -D main -l ru -i po/ru/LC_MESSAGES/main.po -d SuperCat'
                        ],
             'file_dep': ['po/ru/LC_MESSAGES/main.po'],
-            'targets': ['src/ru/LC_MESSAGES/main.mo'],
+            'targets': ['SuperCat/ru/LC_MESSAGES/main.mo'],
            }
 
 
@@ -77,7 +77,7 @@ def task_wheel():
 def task_app():
     """Run application."""
     return {
-            'actions': ['python -m src'],
+            'actions': ['python -m SuperCat'],
             'task_dep': ['mo'],
            }
 
@@ -85,14 +85,14 @@ def task_app():
 def task_style():
     """Check style against flake8."""
     return {
-            'actions': ['flake8 src']
+            'actions': ['flake8 SuperCat']
            }
 
 
 def task_docstyle():
     """Check docstrings against pydocstyle."""
     return {
-            'actions': ['pydocstyle src']
+            'actions': ['pydocstyle SuperCat']
            }
 
 

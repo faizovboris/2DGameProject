@@ -1,14 +1,14 @@
 import unittest
-from src.dog import Dog
-from src.gameplay import Gameplay
-import src.config as config
+from SuperCat.dog import Dog
+from SuperCat.gameplay import Gameplay
+import SuperCat.config as config
 import pygame as pg
 import os
 
 class TestDog(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.images_holder = Gameplay.load_all_images('src/images')
+        self.images_holder = Gameplay.load_all_images('SuperCat/images')
 
     def setUp(self):
         self.dog = Dog(self.images_holder, 10, 5, 0, 100, 1, 5)
