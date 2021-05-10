@@ -115,7 +115,7 @@ def task_all():
 def task_req():
     """Try to calculate runtime requirements."""
     return {
-            'actions': ['pymin_reqs -d main'],
+            'actions': ['pymin_reqs -d SuperCat'],
             'verbosity': 2
            }
 
