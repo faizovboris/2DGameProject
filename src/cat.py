@@ -2,8 +2,8 @@
 import typing
 
 import pygame as pg
-import moving_object
-import config
+from . import moving_object
+from . import config
 
 
 class Cat(moving_object.BaseMovingObject):

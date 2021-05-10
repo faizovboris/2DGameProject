@@ -1,6 +1,7 @@
 import pygame as pg
-import config
 import unittest
+import os
+import src.config as config
 
 def setUpModule():
     os.environ['SDL_VIDEO_CENTERED'] = '1'

@@ -3,7 +3,7 @@ import os
 import typing
 import pygame as pg
 
-import level
+from . import level
 
 
 class Gameplay:
