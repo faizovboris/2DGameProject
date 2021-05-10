@@ -1,2 +1,2 @@
 [pydocstyle]
-match_dir = src
+match_dir = SuperCat
