@@ -1,7 +1,7 @@
 """Module, containing main menu class."""
 import pygame as pg
 
-import config
+from . import config
 
 
 class MainMenu:

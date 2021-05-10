@@ -2,7 +2,7 @@
 import typing
 import pygame as pg
 
-import config
+from . import config
 
 
 class Ground(pg.sprite.Sprite):

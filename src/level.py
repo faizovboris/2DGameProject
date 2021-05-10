@@ -4,10 +4,10 @@ import csv
 import typing
 import pygame as pg
 
-import config
-import barriers
-import cat
-import dog
+from . import config
+from . import barriers
+from . import cat
+from . import dog
 
 
 class BasicLevel:

@@ -1,10 +1,10 @@
 import unittest
-from cat import Cat
-from gameplay import Gameplay
+from src.cat import Cat
+from src.gameplay import Gameplay
 from test.mocks import PgKeyMock
 import pygame as pg
 import os
-import config
+import src.config as config
 from unittest.mock import MagicMock
 
 
@@ -22,7 +22,7 @@ class TestCat(unittest.TestCase):
         pg.init()
         pg.display.set_caption(("Super Cat"))
         screen = pg.display.set_mode(config.SCREEN_SIZE)
-        self.images_holder = Gameplay.load_all_images('./images')
+        self.images_holder = Gameplay.load_all_images('src/images')
 
     def setUp(self):
         self.cat = Cat(self.images_holder)

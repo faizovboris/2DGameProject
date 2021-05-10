@@ -4,10 +4,10 @@ import os
 import gettext
 import pygame as pg
 
-import main_menu
-import gameplay
-import level
-import config
+from . import main_menu
+from . import gameplay
+from . import level
+from . import config
 
 
 def main():
