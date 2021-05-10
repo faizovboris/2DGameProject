@@ -14,9 +14,9 @@ class Gameplay:
     :param screen: Surface with whole screen
     """
 
-    def __init__(self, cur_level: level.BasicLevel, screen: pg.Surface) -> None:
+    def __init__(self, cur_level: level.BasicLevel, screen: pg.Surface, images_dir: str) -> None:
         """Create gameplay object."""
-        self.images_holder = self.load_all_images('./images')
+        self.images_holder = self.load_all_images(images_dir)
         self.cur_level = cur_level
         self.screen = screen
         self.clock = pg.time.Clock()
