@@ -1,9 +1,9 @@
 import unittest
 from SuperCat.dog import Dog
 from SuperCat.gameplay import Gameplay
-import SuperCat.config as config
-import pygame as pg
-import os
+# import SuperCat.config as config
+# import pygame as pg
+
 
 class TestDog(unittest.TestCase):
     @classmethod

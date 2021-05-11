@@ -85,14 +85,16 @@ def task_app():
 def task_style():
     """Check style against flake8."""
     return {
-            'actions': ['flake8 SuperCat']
+            'actions': ['flake8 SuperCat',
+                        'flake8 test']
            }
 
 
 def task_docstyle():
     """Check docstrings against pydocstyle."""
     return {
-            'actions': ['pydocstyle SuperCat']
+            'actions': ['pydocstyle SuperCat',
+                        'pydocstyle test']
            }
 
 
