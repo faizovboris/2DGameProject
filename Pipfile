@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pygame = "*"
+pipfile = "*"
+
+[dev-packages]
+doit = "*"
+flake8 = "*"
+pydocstyle = "*"
+sphinx = "*"
+coverage = "*"
+build = "*"
+
+[requires]
+python_version = "3.6"
