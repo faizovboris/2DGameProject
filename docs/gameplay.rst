@@ -1,7 +1,7 @@
-barriers module
+gameplay module
 ===============
 
-.. automodule:: barriers
+.. automodule:: SuperCat.gameplay
    :members:
    :undoc-members:
    :show-inheritance:
