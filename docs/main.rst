@@ -1,7 +1,7 @@
 main module
 ===========
 
-.. automodule:: SuperCat.main
+.. automodule:: SuperCat.__main__
    :members:
    :undoc-members:
    :show-inheritance:
