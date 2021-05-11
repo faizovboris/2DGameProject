@@ -9,6 +9,8 @@ from . import gameplay
 from . import level
 from . import config
 
+package_directory = os.path.dirname(os.path.abspath(__file__))
+
 
 def main():
     """Application main function."""
@@ -21,13 +23,14 @@ def main():
         menu.mainloop()
         if menu.quit_pressed:
             break
-        game = gameplay.Gameplay(level.Level('level_1'), screen)
+        game = gameplay.Gameplay(level.Level(os.path.join(package_directory, 'level_1')),
+                                 screen, os.path.join(package_directory, 'images'))
         game.mainloop()
         if game.quit_pressed:
             break
 
 
 if __name__ == '__main__':
-    gettext.install('main', localedir='./')
+    gettext.install("main", package_directory, names=("ngettext",))
     main()
     pg.quit()

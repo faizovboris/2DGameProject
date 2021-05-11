@@ -3,3 +3,8 @@ __pycache__
 _static
 _templates
 build
+.coverage
+*.mo
+*.pot
+.idea
+.doit.db.db

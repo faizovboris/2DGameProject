@@ -1,11 +1,9 @@
 import unittest
-from src.cat import Cat
-from src.gameplay import Gameplay
+from SuperCat.cat import Cat
+from SuperCat.gameplay import Gameplay
 from test.mocks import PgKeyMock
 import pygame as pg
-import os
-import src.config as config
-from unittest.mock import MagicMock
+import SuperCat.config as config
 
 
 class TestCatUpdateSpeedParams:
@@ -21,8 +19,8 @@ class TestCat(unittest.TestCase):
     def setUpClass(self):
         pg.init()
         pg.display.set_caption(("Super Cat"))
-        screen = pg.display.set_mode(config.SCREEN_SIZE)
-        self.images_holder = Gameplay.load_all_images('src/images')
+        pg.display.set_mode(config.SCREEN_SIZE)
+        self.images_holder = Gameplay.load_all_images('SuperCat/images')
 
     def setUp(self):
         self.cat = Cat(self.images_holder)
@@ -60,7 +58,8 @@ class TestCat(unittest.TestCase):
             PgKeyMock(PgKeyMock.LEFT), 3,
             {"state": "stand"},
             {"state": 'walk',
-             "x_speed": max(-config.CAT_MAX_X_SPEED, -config.CAT_WALK_ACCELERATION*3, -config.CAT_WALK_ACCELERATION*3)}))
+             "x_speed": max(-config.CAT_MAX_X_SPEED, -config.CAT_WALK_ACCELERATION*3,
+                            -config.CAT_WALK_ACCELERATION*3)}))
 
     def test_speed_walk_update(self):
         self._test_state_and_key(TestCatUpdateSpeedParams(
@@ -74,7 +73,8 @@ class TestCat(unittest.TestCase):
             {"state": "walk",
              "x_speed": 5, "y_speed": 10},
             {"state": 'jump',
-             "x_speed": max(-config.CAT_MAX_X_SPEED, 5 - config.CAT_WALK_ACCELERATION), "y_speed": config.CAT_JUMP_SPEED}))
+             "x_speed": max(-config.CAT_MAX_X_SPEED, 5 - config.CAT_WALK_ACCELERATION),
+             "y_speed": config.CAT_JUMP_SPEED}))
         self._test_state_and_key(TestCatUpdateSpeedParams(
             PgKeyMock(PgKeyMock.RIGHT), 1,
             {"state": "walk",
@@ -142,7 +142,6 @@ class TestCat(unittest.TestCase):
              "x_speed": -50, "y_speed": -500},
             {"state": "fall",
              "x_speed": -config.CAT_WALK_ACCELERATION-50, "y_speed": config.GRAVITY-500}))
-
 
     def test_position_update(self):
         self.cat.x_acceleration = 10
