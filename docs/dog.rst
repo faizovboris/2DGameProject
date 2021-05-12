@@ -1,7 +1,7 @@
-level module
-============
+dog module
+==========
 
-.. automodule:: level
+.. automodule:: SuperCat.dog
    :members:
    :undoc-members:
    :show-inheritance:

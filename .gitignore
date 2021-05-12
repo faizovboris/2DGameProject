@@ -8,3 +8,5 @@ build
 *.pot
 .idea
 .doit.db.db
+.doit.db
+Pipfile.lock

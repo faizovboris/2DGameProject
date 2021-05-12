@@ -1,7 +1,7 @@
-dog module
+cat module
 ==========
 
-.. automodule:: dog
+.. automodule:: SuperCat.cat
    :members:
    :undoc-members:
    :show-inheritance:

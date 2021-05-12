@@ -1,7 +1,7 @@
 main\_menu module
 =================
 
-.. automodule:: main_menu
+.. automodule:: SuperCat.main_menu
    :members:
    :undoc-members:
    :show-inheritance:
