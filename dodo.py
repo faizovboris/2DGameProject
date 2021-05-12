@@ -110,7 +110,7 @@ def task_all():
     """Perform all build task."""
     return {
             'actions': None,
-            'task_dep': ['check', 'wheel', 'req']
+            'task_dep': ['check', 'html', 'wheel', 'req']
            }
 
 
