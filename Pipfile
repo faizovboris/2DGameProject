@@ -14,6 +14,7 @@ pydocstyle = "*"
 sphinx = "*"
 coverage = "*"
 build = "*"
+pymin_reqs = "*"
 
 [requires]
 python_version = "3.8"
