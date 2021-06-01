@@ -4,7 +4,7 @@ import os
 import gettext
 import pygame as pg
 
-from . import main_menu
+from . import main_menu, win_menu
 from . import gameplay
 from . import level
 from . import config
@@ -28,6 +28,11 @@ def main():
         game.mainloop()
         if game.quit_pressed:
             break
+        if game.win:
+            win = win_menu.WinMenu(screen, menu.input_text)
+            win.mainloop()
+            if win.quit_pressed:
+                break
 
 
 if __name__ == '__main__':
