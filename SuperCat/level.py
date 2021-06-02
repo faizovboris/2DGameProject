@@ -27,6 +27,7 @@ class Level(BasicLevel):
     def __init__(self, directory: str) -> None:
         """Create this level object."""
         self.finished = False
+        self.win = False
         super().__init__()
         self.level_info = parse_level_info(directory)
 
@@ -51,7 +52,7 @@ class Level(BasicLevel):
 
     def init_background(self) -> None:
         """Initialize background objects of this level."""
-        width, height = 9000, 600
+        width, height = config.MAX_LEVEL_WIDTH, config.SCREEN_HEIGHT
         self.background = pg.Surface((width, height)).convert()
         self.background.fill(config.SKY_COLOR)
         self.level = pg.Surface((width, height)).convert()
@@ -126,8 +127,12 @@ class Level(BasicLevel):
         self.update_dogs(diff_time)
         self.update_view()
         self.draw_scene()
+        if self.cat.x_position >= config.MAX_LEVEL_WIDTH - 100:
+            self.win = True
+            self.finished = True
         if self.cat.is_killed:
             self.finished = True
+            self.win = False
 
     def update_dogs(self, diff_time) -> None:
         """

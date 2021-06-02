@@ -25,6 +25,7 @@ class Gameplay:
         self.finished = False
         self.quit_pressed = False
         self.keys_pressed = pg.key.get_pressed()
+        self.win = False
 
     @staticmethod
     def load_all_images(directory: str) -> typing.Dict[str, pg.Surface]:
@@ -56,5 +57,5 @@ class Gameplay:
             self.old_time = new_time
             pg.display.update()
             self.clock.tick(self.fps)
-            if self.cur_level.finished:
-                self.finished = True
+            self.finished = self.cur_level.finished
+            self.win = self.cur_level.win

@@ -17,8 +17,8 @@ class MainMenu:
         self.finished = False
         self.quit_pressed = False
         self.input_text = ""
-        self.text_color = (255, 255, 255)
-        self.text_background = (255, 100, 100)
+        self.text_color = config.TEXT_COLOR
+        self.text_background = config.TEXT_BACKGROUND_COLOR
         self.max_text_len = 10
         self.padding = 5
         self.screen.fill(config.SKY_COLOR)
