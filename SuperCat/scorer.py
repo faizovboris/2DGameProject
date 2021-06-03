@@ -11,6 +11,8 @@ class ScorerObject(object):
         """Create ScorerObject object."""
         self.score = 0
         self.max_position = 0
+        self.font = pg.font.SysFont('monospace', bold=True, size=30)
+
 
     def draw_score(self, screen: pg.Surface):
         """
@@ -19,8 +21,7 @@ class ScorerObject(object):
         :param screen: Surface with whole screen
         """
         text = _("SCORE:") + '{:06d}'.format(int(self.score))
-        font = pg.font.SysFont('monospace', bold=True, size=30)
-        text = font.render(text, True, config.TEXT_COLOR)
+        text = self.font.render(text, True, config.TEXT_COLOR)
         screen.blit(text, config.SCORE_POSITION)
 
     def update_max_position(self, cur_position: int) -> None:
