@@ -8,6 +8,7 @@ from . import main_menu, win_menu
 from . import gameplay
 from . import level
 from . import sound_manager
+from . import scorer
 from . import config
 
 package_directory = os.path.dirname(os.path.abspath(__file__))
@@ -20,8 +21,10 @@ def main():
     pg.display.set_caption(_("Super Cat"))
     screen = pg.display.set_mode(config.SCREEN_SIZE)
     sounds = sound_manager.SoundManager(os.path.join(package_directory, 'music'))
+    path_to_score = os.path.join(package_directory, 'best_score.txt')
     while True:
-        menu = main_menu.MainMenu(screen, sounds)
+        best_score = scorer.ScorerObject.get_best_score(path_to_score)
+        menu = main_menu.MainMenu(screen, sounds, best_score)
         menu.mainloop()
         if menu.quit_pressed:
             break
@@ -29,6 +32,7 @@ def main():
                                  screen, os.path.join(package_directory, 'images'),
                                  sounds)
         game.mainloop()
+        game.cur_level.cur_scorer.update_best_score(path_to_score)
         if game.quit_pressed:
             break
         if game.win:

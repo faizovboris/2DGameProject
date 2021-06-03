@@ -17,6 +17,7 @@ class BasicLevel:
 
     def __init__(self) -> None:
         """Create BasicLevel object."""
+        self.cur_scorer = scorer.ScorerObject()
         pass
 
 
@@ -31,7 +32,6 @@ class Level(BasicLevel):
         self.sounds = sounds
         self.finished = False
         self.win = False
-        self.cur_scorer = scorer.ScorerObject()
         super().__init__()
         self.level_info = parse_level_info(directory)
 

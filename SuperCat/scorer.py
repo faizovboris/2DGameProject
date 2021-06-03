@@ -1,4 +1,5 @@
 """Module, containing implementaion of game scorer."""
+import os
 import pygame as pg
 
 from . import config
@@ -44,3 +45,29 @@ class ScorerObject(object):
     def get_score(self) -> None:
         """Get current score."""
         return self.score
+
+    @staticmethod
+    def get_best_score(filename: str) -> int:
+        """
+        Get current best score.
+        
+        :param filename: path to file with best score
+        """
+        best_score = 0
+        if os.path.exists(filename):
+            with open(filename, "r") as fr:
+                try:
+                    best_score = int(fr.read())
+                except:
+                    best_score = 0
+        return best_score
+
+    def update_best_score(self, filename):
+        """
+       Update current best score.
+        
+        :param filename: path to file with best score
+        """
+        best_score = max(self.get_best_score(filename), int(self.score))
+        with open(filename, "w") as fw:
+            fw.write(str(best_score))

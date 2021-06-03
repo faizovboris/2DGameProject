@@ -11,9 +11,10 @@ class MainMenu:
 
     :param screen: Surface with whole screen
     :param sounds: Sound Manager object
+    :param best_score: Value of best score
     """
 
-    def __init__(self, screen: pg.Surface, sounds: sound_manager.SoundManager) -> None:
+    def __init__(self, screen: pg.Surface, sounds: sound_manager.SoundManager, best_score: int) -> None:
         """Create main menu object."""
         self.screen = screen
         self.sounds = sounds
@@ -40,6 +41,10 @@ class MainMenu:
             text1_rendered = self.font.render(text, True, self.text_color, self.text_background)
             widget_position = (100, self.screen.get_height() - text_height * (i + 1))
             self.screen.blit(text1_rendered, widget_position)
+
+        score_text = _("BEST SCORE:") + '{:06d}'.format(best_score)
+        score_text = self.font.render(score_text, True, self.text_color, self.text_background)
+        self.screen.blit(score_text, config.SCORE_POSITION)
 
     def update_input_text(self):
         """Update main menu input text."""
