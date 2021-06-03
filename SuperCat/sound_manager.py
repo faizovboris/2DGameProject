@@ -1,6 +1,5 @@
 """Module, containing implementaion of sound manager."""
 import os
-
 import pygame as pg
 
 
@@ -30,7 +29,7 @@ class SoundManager(object):
         if self.background_music:
             self.music_data[self.background_music].stop()
         self.music_data[music_key].play(-1)
-        self.music_data[music_key].set_volume(0.5)
+        self.music_data[music_key].set_volume(0.1)
         self.background_music = music_key
 
     def set_effect(self, music_key: str) -> None:
