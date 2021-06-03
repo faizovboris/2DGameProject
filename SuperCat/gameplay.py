@@ -4,21 +4,26 @@ import typing
 import pygame as pg
 
 from . import level
+from . import sound_manager
 
 
 class Gameplay:
     """
     Class for controlling of gamplay.
 
-    :param level: Current level of gameplay
+    :param cur_level: Current level of gameplay
     :param screen: Surface with whole screen
+    :param images_dir: Path to folder with images
+    :param sounds: Sound Manager object
     """
 
-    def __init__(self, cur_level: level.BasicLevel, screen: pg.Surface, images_dir: str) -> None:
+    def __init__(self, cur_level: level.BasicLevel, screen: pg.Surface, images_dir: str,
+                 sounds: sound_manager.SoundManager) -> None:
         """Create gameplay object."""
         self.images_holder = self.load_all_images(images_dir)
         self.cur_level = cur_level
         self.screen = screen
+        self.sounds = sounds
         self.clock = pg.time.Clock()
         self.old_time = pg.time.get_ticks()
         self.fps = 60
@@ -45,8 +50,9 @@ class Gameplay:
 
     def mainloop(self) -> None:
         """Game main loop."""
+        self.sounds.set_background_music('theme')
         self.cur_level.start_level(self.images_holder, self.screen)
-        while not self.finished:
+        while not self.finished and not self.quit_pressed:
             for event in pg.event.get():
                 if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                     self.finished = True
@@ -59,3 +65,4 @@ class Gameplay:
             self.clock.tick(self.fps)
             self.finished = self.cur_level.finished
             self.win = self.cur_level.win
+        self.sounds.stop_music()

@@ -8,6 +8,7 @@ from . import config
 from . import barriers
 from . import cat
 from . import dog
+from . import sound_manager
 
 
 class BasicLevel:
@@ -24,8 +25,9 @@ class Level(BasicLevel):
     :param directory: Directory with info about objects in level
     """
 
-    def __init__(self, directory: str) -> None:
+    def __init__(self, directory: str, sounds: sound_manager.SoundManager) -> None:
         """Create this level object."""
+        self.sounds = sounds
         self.finished = False
         self.win = False
         super().__init__()
@@ -149,8 +151,10 @@ class Level(BasicLevel):
                     if dog_instance.is_killed or dog_instance.state == 'dying':
                         self.cat.y_speed += config.CAT_ENEMY_KILLING_JUMP_SPEED
                         self.cat.state = 'jump'
+                        self.sounds.set_effect('kill_dog')
                     else:
                         self.cat.is_killed = True
+                        self.sounds.set_effect('kill_cat')
             if dog_instance.state == 'fall' and dog_instance.y_position >= config.SCREEN_HEIGHT:
                 dog_instance.is_killed = True
             if dog_instance.is_killed:
