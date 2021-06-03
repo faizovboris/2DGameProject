@@ -40,7 +40,7 @@ class ScorerObject(object):
         :param add_score: amount of score to add
         """
         self.score += add_score
-    
+
     def get_score(self) -> None:
         """Get current score."""
         return self.score
