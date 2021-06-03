@@ -106,8 +106,9 @@ class Cat(moving_object.BaseMovingObject):
             else:
                 self.x_acceleration = config.CAT_WALK_ACCELERATION
         self.x_speed += self.x_acceleration * diff_time
-        if self.x_speed == 0 and self.state == 'walk':
+        if abs(self.x_speed) < config.CAT_SPEED_ZERO_EPS and self.state == 'walk':
             self.state = 'stand'
+            self.x_speed = 0
 
     def update_position(self,
                         all_barriers_group: pg.sprite.Group,

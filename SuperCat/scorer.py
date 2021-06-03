@@ -13,7 +13,6 @@ class ScorerObject(object):
         self.max_position = 0
         self.font = pg.font.SysFont('monospace', bold=True, size=30)
 
-
     def draw_score(self, screen: pg.Surface):
         """
         Draw score on screen.
