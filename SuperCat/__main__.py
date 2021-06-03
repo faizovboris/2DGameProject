@@ -21,22 +21,22 @@ def main():
     pg.display.set_caption(_("Super Cat"))
     screen = pg.display.set_mode(config.SCREEN_SIZE)
     sounds = sound_manager.SoundManager(os.path.join(package_directory, 'music'))
+    sounds.set_background_music('theme')
     path_to_score = os.path.join(package_directory, 'best_score.txt')
     while True:
         best_score = scorer.ScorerObject.get_best_score(path_to_score)
-        menu = main_menu.MainMenu(screen, sounds, best_score)
+        menu = main_menu.MainMenu(screen, best_score)
         menu.mainloop()
         if menu.quit_pressed:
             break
         game = gameplay.Gameplay(level.Level(os.path.join(package_directory, 'level_1'), sounds),
-                                 screen, os.path.join(package_directory, 'images'),
-                                 sounds)
+                                 screen, os.path.join(package_directory, 'images'))
         game.mainloop()
         game.cur_level.cur_scorer.update_best_score(path_to_score)
         if game.quit_pressed:
             break
         if game.win:
-            win = win_menu.WinMenu(screen, menu.input_text, sounds)
+            win = win_menu.WinMenu(screen, menu.input_text)
             win.mainloop()
             if win.quit_pressed:
                 break

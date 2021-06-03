@@ -2,7 +2,6 @@
 import pygame as pg
 
 from . import config
-from . import sound_manager
 
 
 class WinMenu:
@@ -11,12 +10,10 @@ class WinMenu:
 
     :param screen: Surface with whole screen
     :param name: Name of the winner
-    :param sounds: Sound Manager object
     """
 
-    def __init__(self, screen: pg.Surface, name: str, sounds: sound_manager.SoundManager) -> None:
+    def __init__(self, screen: pg.Surface, name: str) -> None:
         """Create win menu object."""
-        self.sounds = sounds
         self.finished = False
         self.quit_pressed = False
         screen.fill(config.SKY_COLOR)
@@ -44,8 +41,6 @@ class WinMenu:
 
     def mainloop(self) -> None:
         """Loop for win menu."""
-        self.sounds.set_background_music('theme')
         while not self.finished:
             self.update_events()
             pg.display.update()
-        self.sounds.stop_music()

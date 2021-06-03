@@ -25,6 +25,7 @@ class Level(BasicLevel):
     """Class with gameplay of simple level.
 
     :param directory: Directory with info about objects in level
+    :param sounds: Sound Manager object
     """
 
     def __init__(self, directory: str, sounds: sound_manager.SoundManager) -> None:

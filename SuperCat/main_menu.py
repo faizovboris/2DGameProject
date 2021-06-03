@@ -2,7 +2,6 @@
 import pygame as pg
 
 from . import config
-from . import sound_manager
 
 
 class MainMenu:
@@ -10,14 +9,12 @@ class MainMenu:
     Class for main menu.
 
     :param screen: Surface with whole screen
-    :param sounds: Sound Manager object
     :param best_score: Value of best score
     """
 
-    def __init__(self, screen: pg.Surface, sounds: sound_manager.SoundManager, best_score: int) -> None:
+    def __init__(self, screen: pg.Surface, best_score: int) -> None:
         """Create main menu object."""
         self.screen = screen
-        self.sounds = sounds
         self.finished = False
         self.quit_pressed = False
         self.input_text = ""
@@ -77,9 +74,7 @@ class MainMenu:
 
     def mainloop(self) -> None:
         """Loop for main menu."""
-        self.sounds.set_background_music('theme')
         while not self.finished:
             self.update_events()
             self.update_input_text()
             pg.display.update()
-        self.sounds.stop_music()
