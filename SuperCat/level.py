@@ -8,6 +8,8 @@ from . import config
 from . import barriers
 from . import cat
 from . import dog
+from . import sound_manager
+from . import scorer
 
 
 class BasicLevel:
@@ -15,6 +17,7 @@ class BasicLevel:
 
     def __init__(self) -> None:
         """Create BasicLevel object."""
+        self.cur_scorer = scorer.ScorerObject()
         pass
 
 
@@ -22,10 +25,12 @@ class Level(BasicLevel):
     """Class with gameplay of simple level.
 
     :param directory: Directory with info about objects in level
+    :param sounds: Sound Manager object
     """
 
-    def __init__(self, directory: str) -> None:
+    def __init__(self, directory: str, sounds: sound_manager.SoundManager) -> None:
         """Create this level object."""
+        self.sounds = sounds
         self.finished = False
         self.win = False
         super().__init__()
@@ -133,6 +138,8 @@ class Level(BasicLevel):
         if self.cat.is_killed:
             self.finished = True
             self.win = False
+        if not self.cat.is_killed:
+            self.cur_scorer.update_max_position(self.cat.x_position)
 
     def update_dogs(self, diff_time) -> None:
         """
@@ -149,8 +156,11 @@ class Level(BasicLevel):
                     if dog_instance.is_killed or dog_instance.state == 'dying':
                         self.cat.y_speed += config.CAT_ENEMY_KILLING_JUMP_SPEED
                         self.cat.state = 'jump'
+                        self.sounds.set_effect('kill_dog')
+                        self.cur_scorer.add_score(1000)
                     else:
                         self.cat.is_killed = True
+                        self.sounds.set_effect('kill_cat')
             if dog_instance.state == 'fall' and dog_instance.y_position >= config.SCREEN_HEIGHT:
                 dog_instance.is_killed = True
             if dog_instance.is_killed:
@@ -172,6 +182,7 @@ class Level(BasicLevel):
         self.cat_group.draw(self.level)
         self.dogs_group.draw(self.level)
         self.screen.blit(self.level, (0, 0), self.view)
+        self.cur_scorer.draw_score(self.screen)
 
 
 def parse_level_info(directory: str) -> typing.Dict[str, typing.Dict[str, str]]:

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-06-01 18:35+0300\n"
+"POT-Creation-Date: 2021-06-03 19:53+0300\n"
 "PO-Revision-Date: 2021-04-21 19:14+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,35 +19,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: SuperCat/__main__.py:19
+#: SuperCat/__main__.py:21
 msgid "Super Cat"
 msgstr "Супер Кот"
 
-#: SuperCat/main_menu.py:31
+#: SuperCat/main_menu.py:35
 msgid "Name:"
 msgstr "Имя:"
 
-#: SuperCat/main_menu.py:36
+#: SuperCat/main_menu.py:40
 msgid "^ Jump"
 msgstr "^ Прыжок"
 
-#: SuperCat/main_menu.py:36
+#: SuperCat/main_menu.py:40
 msgid "> Right"
 msgstr "> Вправо"
 
-#: SuperCat/main_menu.py:36
+#: SuperCat/main_menu.py:40
 msgid "< Left"
 msgstr "< Влево"
 
-#: SuperCat/win_menu.py:21
+#: SuperCat/main_menu.py:45
+msgid "BEST SCORE:"
+msgstr "ЛУЧШИЙ СЧЁТ:"
+
+#: SuperCat/scorer.py:23
+msgid "SCORE:"
+msgstr "СЧЁТ:"
+
+#: SuperCat/win_menu.py:24
 msgid "Player"
 msgstr "Игрок"
 
-#: SuperCat/win_menu.py:21
+#: SuperCat/win_menu.py:24
 msgid "won!"
 msgstr "выиграл!"
 
-#: SuperCat/win_menu.py:21
+#: SuperCat/win_menu.py:24
 msgid "Press ENTER to continue"
 msgstr "Нажмите Enter, чтобы продолжить"
 

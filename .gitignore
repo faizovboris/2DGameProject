@@ -10,3 +10,4 @@ build
 .doit.db.db
 .doit.db
 Pipfile.lock
+best_score.txt

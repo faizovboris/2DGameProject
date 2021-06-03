@@ -10,8 +10,9 @@ class Gameplay:
     """
     Class for controlling of gamplay.
 
-    :param level: Current level of gameplay
+    :param cur_level: Current level of gameplay
     :param screen: Surface with whole screen
+    :param images_dir: Path to folder with images
     """
 
     def __init__(self, cur_level: level.BasicLevel, screen: pg.Surface, images_dir: str) -> None:
@@ -46,7 +47,7 @@ class Gameplay:
     def mainloop(self) -> None:
         """Game main loop."""
         self.cur_level.start_level(self.images_holder, self.screen)
-        while not self.finished:
+        while not self.finished and not self.quit_pressed:
             for event in pg.event.get():
                 if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                     self.finished = True
