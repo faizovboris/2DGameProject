@@ -13,7 +13,7 @@ class ScorerObject(object):
         self.max_position = 0
         self.font = pg.font.SysFont('monospace', bold=True, size=30)
 
-    def draw_score(self, screen: pg.Surface):
+    def draw_score(self, screen: pg.Surface) -> None:
         """
         Draw score on screen.
 
@@ -40,3 +40,7 @@ class ScorerObject(object):
         :param add_score: amount of score to add
         """
         self.score += add_score
+    
+    def get_score(self) -> None:
+        """Get current score."""
+        return self.score
