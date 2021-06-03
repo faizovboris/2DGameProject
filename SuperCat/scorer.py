@@ -50,7 +50,7 @@ class ScorerObject(object):
     def get_best_score(filename: str) -> int:
         """
         Get current best score.
-        
+
         :param filename: path to file with best score
         """
         best_score = 0
@@ -58,14 +58,14 @@ class ScorerObject(object):
             with open(filename, "r") as fr:
                 try:
                     best_score = int(fr.read())
-                except:
+                except ValueError:
                     best_score = 0
         return best_score
 
     def update_best_score(self, filename):
         """
-       Update current best score.
-        
+        Update current best score.
+
         :param filename: path to file with best score
         """
         best_score = max(self.get_best_score(filename), int(self.score))
