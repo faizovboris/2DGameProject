@@ -43,6 +43,7 @@ class Level(BasicLevel):
         :param images_holder: All images and sprites
         :param screen: Surface with whole screen
         """
+        self.cur_scorer.max_position = 0
         self.images_holder = images_holder
         self.screen = screen
         self.init_background()
