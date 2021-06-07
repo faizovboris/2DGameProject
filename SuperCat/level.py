@@ -9,15 +9,15 @@ from . import barriers
 from . import cat
 from . import dog
 from . import sound_manager
-from . import scorer
+from . import counter
 
 
 class BasicLevel:
     """Basic level class."""
 
-    def __init__(self, scorer) -> None:
+    def __init__(self, counter) -> None:
         """Create BasicLevel object."""
-        self.cur_scorer = scorer
+        self.cur_counter = counter
         pass
 
 
@@ -25,15 +25,14 @@ class Level(BasicLevel):
     """Class with gameplay of simple level.
 
     :param directory: Directory with info about objects in level
+    :param counter: Counter object
     :param sounds: Sound Manager object
     """
 
-    def __init__(self, scorer: scorer.ScorerObject, directory: str, sounds: sound_manager.SoundManager) -> None:
+    def __init__(self, counter: counter.Counter, directory: str, sounds: sound_manager.SoundManager) -> None:
         """Create this level object."""
         self.sounds = sounds
-        self.finished = False
-        self.win = False
-        super().__init__(scorer)
+        super().__init__(counter)
         self.level_info = parse_level_info(directory)
 
     def start_level(self, images_holder: typing.Dict[str, pg.Surface], screen: pg.Surface) -> None:
@@ -43,6 +42,8 @@ class Level(BasicLevel):
         :param images_holder: All images and sprites
         :param screen: Surface with whole screen
         """
+        self.finished = False
+        self.win = False
         self.images_holder = images_holder
         self.screen = screen
         self.init_background()
@@ -139,7 +140,7 @@ class Level(BasicLevel):
             self.finished = True
             self.win = False
         if not self.cat.is_killed:
-            self.cur_scorer.update_max_position(self.cat.x_position)
+            self.cur_counter.update_max_position(self.cat.x_position)
 
     def update_dogs(self, diff_time) -> None:
         """
@@ -157,7 +158,7 @@ class Level(BasicLevel):
                         self.cat.y_speed += config.CAT_ENEMY_KILLING_JUMP_SPEED
                         self.cat.state = 'jump'
                         self.sounds.set_effect('kill_dog')
-                        self.cur_scorer.add_score(1000)
+                        self.cur_counter.add_score(1000)
                     else:
                         self.cat.is_killed = True
                         self.sounds.set_effect('kill_cat')
@@ -182,7 +183,7 @@ class Level(BasicLevel):
         self.cat_group.draw(self.level)
         self.dogs_group.draw(self.level)
         self.screen.blit(self.level, (0, 0), self.view)
-        self.cur_scorer.draw_score(self.screen)
+        self.cur_counter.draw_counters(self.screen)
 
 
 def parse_level_info(directory: str) -> typing.Dict[str, typing.Dict[str, str]]:

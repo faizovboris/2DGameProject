@@ -4,7 +4,7 @@ import typing
 import pygame as pg
 
 from . import level
-from . import scorer
+from . import counter
 
 
 class Gameplay:
@@ -16,9 +16,11 @@ class Gameplay:
     :param images_dir: Path to folder with images
     """
 
-    def __init__(self, levels: typing.List[level.BasicLevel], screen: pg.Surface, images_dir: str) -> None:
+    def __init__(self, levels: typing.List[level.BasicLevel], screen: pg.Surface,
+                 images_dir: str, counter: counter.Counter) -> None:
         """Create gameplay object."""
         self.images_holder = self.load_all_images(images_dir)
+        self.counter = counter
         self.all_levels = levels
         self.cur_level = 0
         self.screen = screen
@@ -62,12 +64,16 @@ class Gameplay:
             pg.display.update()
             self.clock.tick(self.fps)
             if level.finished:
-                if not level.win:
+                if level.win:
+                    self.cur_level += 1
+                    if self.cur_level >= len(self.all_levels):
+                        self.win = True
+                        break
+                    level = self.all_levels[self.cur_level]
+                    level.start_level(self.images_holder, self.screen)
+                elif self.counter.get_lives() == 1:
                     break
-                print("next level")
-                self.cur_level += 1
-                if self.cur_level >= len(self.all_levels):
-                    self.win = True
-                    break
-                level = self.all_levels[self.cur_level]
-                level.start_level(self.images_holder, self.screen)
+                else:
+                    self.counter.miss_life()
+                    level = self.all_levels[self.cur_level]
+                    level.start_level(self.images_holder, self.screen)
