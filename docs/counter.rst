@@ -1,5 +1,5 @@
 counter module
-=============
+==============
 
 .. automodule:: SuperCat.counter
    :members:
