@@ -115,8 +115,12 @@ class Level(BasicLevel):
     def init_cat(self) -> None:
         """Initialize cat for this level."""
         self.cat = cat.Cat(self.images_holder)
-        self.cat.x_position = 5
-        self.cat.y_position = config.GROUND_Y_POSITION
+        check_point = {'x': '5', 'y': '0'}
+        for point in self.level_info['checkpoints']:
+            if int(point['x']) <= self.cur_counter.get_max_position() and int(point['x']) > int(check_point['x']):
+                check_point = point
+        self.cat.x_position = int(check_point['x'])
+        self.cat.y_position = config.GROUND_Y_POSITION - int(check_point['y'])
         self.cat_group = pg.sprite.Group(self.cat)
 
     def update(self, keys: pg.key.ScancodeWrapper, diff_time: float) -> None:
