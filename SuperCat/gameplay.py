@@ -1,4 +1,4 @@
-"""Module, containing gamplay controlling class."""
+"""Module, containing gameplay controlling class."""
 import os
 import typing
 import pygame as pg
@@ -9,7 +9,7 @@ from . import counter
 
 class Gameplay:
     """
-    Class for controlling of gamplay.
+    Class for controlling of gameplay.
 
     :param cur_level: Current level of gameplay
     :param screen: Surface with whole screen

@@ -1,4 +1,4 @@
-"""Module, containing implementaion of game levels."""
+"""Module, containing implementation of game levels."""
 import os
 import csv
 import typing
@@ -134,6 +134,7 @@ class Level(BasicLevel):
         self.cat.update_position(self.static_barriers_group, self.view.x + 5, diff_time)
         if self.cat.state == 'fall' and self.cat.y_position >= config.SCREEN_HEIGHT:
             self.cat.is_killed = True
+            self.sounds.set_effect('kill_cat')
         self.update_dogs(diff_time)
         self.update_view()
         self.draw_scene()
