@@ -4,7 +4,6 @@ import typing
 import pygame as pg
 
 from . import level
-from . import scorer
 
 
 class Gameplay:
