@@ -65,6 +65,7 @@ class Gameplay:
             self.clock.tick(self.fps)
             if level.finished:
                 if level.win:
+                    self.counter.max_position = 0
                     self.cur_level += 1
                     if self.cur_level >= len(self.all_levels):
                         self.win = True
