@@ -15,9 +15,9 @@ from . import scorer
 class BasicLevel:
     """Basic level class."""
 
-    def __init__(self) -> None:
+    def __init__(self, scorer) -> None:
         """Create BasicLevel object."""
-        self.cur_scorer = scorer.ScorerObject()
+        self.cur_scorer = scorer
         pass
 
 
@@ -28,12 +28,12 @@ class Level(BasicLevel):
     :param sounds: Sound Manager object
     """
 
-    def __init__(self, directory: str, sounds: sound_manager.SoundManager) -> None:
+    def __init__(self, scorer: scorer.ScorerObject, directory: str, sounds: sound_manager.SoundManager) -> None:
         """Create this level object."""
         self.sounds = sounds
         self.finished = False
         self.win = False
-        super().__init__()
+        super().__init__(scorer)
         self.level_info = parse_level_info(directory)
 
     def start_level(self, images_holder: typing.Dict[str, pg.Surface], screen: pg.Surface) -> None:

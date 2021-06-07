@@ -24,15 +24,17 @@ def main():
     sounds.set_background_music('theme')
     path_to_score = os.path.join(package_directory, 'best_score.txt')
     while True:
+        global_scorer = scorer.ScorerObject()
         best_score = scorer.ScorerObject.get_best_score(path_to_score)
         menu = main_menu.MainMenu(screen, best_score)
         menu.mainloop()
         if menu.quit_pressed:
             break
-        game = gameplay.Gameplay(level.Level(os.path.join(package_directory, 'level_1'), sounds),
+        game = gameplay.Gameplay([level.Level(global_scorer, os.path.join(package_directory, 'level_1'), sounds),
+                                  level.Level(global_scorer, os.path.join(package_directory, 'level_2'), sounds)],
                                  screen, os.path.join(package_directory, 'images'))
         game.mainloop()
-        game.cur_level.cur_scorer.update_best_score(path_to_score)
+        global_scorer.update_best_score(path_to_score)
         if game.quit_pressed:
             break
         if game.win:
