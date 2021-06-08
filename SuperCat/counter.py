@@ -1,17 +1,18 @@
-"""Module, containing implementaion of game scorer."""
+"""Module, containing implementation of game counter."""
 import os
 import pygame as pg
 
 from . import config
 
 
-class ScorerObject(object):
-    """Class for scoring game."""
+class Counter(object):
+    """Class for game counters (score and lives)."""
 
     def __init__(self) -> None:
-        """Create ScorerObject object."""
+        """Create Counter object."""
         self.score = 0
         self.max_position = 0
+        self.lives = 9
         self.font = pg.font.SysFont('monospace', bold=True, size=30)
 
     def draw_score(self, screen: pg.Surface) -> None:
@@ -23,6 +24,25 @@ class ScorerObject(object):
         text = _("SCORE:") + '{:06d}'.format(int(self.score))
         text = self.font.render(text, True, config.TEXT_COLOR)
         screen.blit(text, config.SCORE_POSITION)
+
+    def draw_lives(self, screen: pg.Surface) -> None:
+        """
+        Draw lives on screen.
+
+        :param screen: Surface with whole screen
+        """
+        text = _("LIVES:") + '{:01d}'.format(int(self.lives))
+        text = self.font.render(text, True, config.TEXT_COLOR)
+        screen.blit(text, config.LIVES_POSITION)
+
+    def draw_counters(self, screen: pg.Surface) -> None:
+        """
+        Draw score and lives on screen.
+
+        :param screen: Surface with whole screen
+        """
+        self.draw_score(screen)
+        self.draw_lives(screen)
 
     def update_max_position(self, cur_position: int) -> None:
         """
@@ -42,9 +62,21 @@ class ScorerObject(object):
         """
         self.score += add_score
 
-    def get_score(self) -> None:
+    def miss_life(self) -> None:
+        """Decrease counter of lives."""
+        self.lives = max(0, self.lives - 1)
+
+    def get_score(self) -> int:
         """Get current score."""
         return self.score
+
+    def get_lives(self) -> int:
+        """Get current lives."""
+        return self.lives
+
+    def get_max_position(self) -> int:
+        """Get maximal position."""
+        return self.max_position
 
     @staticmethod
     def get_best_score(filename: str) -> int:

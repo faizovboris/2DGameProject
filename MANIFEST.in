@@ -2,4 +2,5 @@ recursive-include po *.po
 recursive-include test *
 recursive-include SuperCat/images *
 recursive-include SuperCat/level_1/ *
+recursive-include SuperCat/level_2/ *
 recursive-include SuperCat/music/ *

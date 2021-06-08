@@ -14,5 +14,5 @@ src
    main_menu
    win_menu
    moving_object
-   scorer
+   counter
    sound_manager
